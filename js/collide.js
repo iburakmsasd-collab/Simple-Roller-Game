@@ -6,6 +6,7 @@
 
    Every function here answers one yes-or-no question about a box.
    ===================================================================== */
+   
 
 var Collide = {};
 
