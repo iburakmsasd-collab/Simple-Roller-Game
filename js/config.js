@@ -35,3 +35,11 @@ var CONFIG = {
   // --- rules ----------------------------------------------------------
   START_LEVEL: 0      // which level in data/levels.json to load first
 };
+
+ DASH_SPEED: 14,            // pixels per frame during a dash  
+  DASH_FRAMES: 10,           // how long a dash lasts (about 0.15 sec)  
+  DASH_COOLDOWN_FRAMES: 180, // 3 seconds at 60 frames per second  
+  DASH_RANGE: 150,           // how close an enemy must be to dash  
+  ENEMY_SPEED: 1,            // enemy pixels per frame  
+  ENEMY_CHASE_RANGE: 5       // tiles before an enemy starts chasing 
+

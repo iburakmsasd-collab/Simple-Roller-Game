@@ -35,3 +35,7 @@ function setKey(key, isDown) {
   if (key === "ArrowUp"    || key === " " || key === "w" || key === "W") { Input.jump = isDown; }
   if (key === "r" || key === "R") { Input.restart = isDown; }
 }
+
+ if (key === "q") { Input.q = isDown; }  
+  if (key === "e") { Input.e = isDown; }  
+
