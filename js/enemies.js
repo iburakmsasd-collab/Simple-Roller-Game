@@ -187,12 +187,14 @@ Enemies.overlap = function (x, y, w, h, enemy) {
          y < enemy.y + enemy.size && y + h > enemy.y;  
 };  
 
-// dead if touching a spike, off the world, or grabbed by an enemy  
-Player.isDead = function () {  
+// is an enemy touching the player right now?  
+Enemies.hitsPlayer = function () {  
   var size = CONFIG.PLAYER_SIZE;  
-  if (Collide.hitsSpike(Player.x, Player.y, size, size)) { return true; }  
-  if (Player.y > CONFIG.CANVAS_H + 200) { return true; }  
-  if (Enemies.hitsPlayer()) { return true; }  
+  for (var i = 0; i < Enemies.list.length; i++) {  
+    if (Enemies.overlap(Player.x, Player.y, size, size, Enemies.list[i])) {  
+      return true;  
+    }  
+  }  
   return false;  
 };  
   
