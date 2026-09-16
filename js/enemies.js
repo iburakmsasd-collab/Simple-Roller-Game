@@ -105,8 +105,7 @@ Enemies.update = function () {
         Enemies.playPop();  
         enemy.respawnTimer = CONFIG.ENEMY_RESPAWN_FRAMES;  
       }  
-      }  
-    }  
+      }    
     Enemies.dashFrames = Enemies.dashFrames - 1;  
     if (Enemies.dashFrames <= 0) {  
       Enemies.dashState = "cooldown";  
