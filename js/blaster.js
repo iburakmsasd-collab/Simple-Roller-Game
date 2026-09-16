@@ -74,22 +74,6 @@ var px = Player.x + CONFIG.PLAYER_SIZE / 2;
 // blast every enemy inside the radius
 var px = Player.x + CONFIG.PLAYER_SIZE / 2;
 var py = Player.y + CONFIG.PLAYER_SIZE / 2;
-var radius = CONFIG.BLASTER_RADIUS * CONFIG.TILE;
-for (var i = Enemies.list.length - 1; i >= 0; i--) {
-var enemy = Enemies.list[i];
-if (enemy.respawnTimer > 0) { continue; } // already dead, skip  
-
-var ex = enemy.x + enemy.size / 2;
-var ey = enemy.y + enemy.size / 2;
-var dx = ex - px;
-var dy = ey - py;
-if (Math.sqrt(dx * dx + dy * dy) < radius) {
-Enemies.spawnPop(ex, ey);
-Enemies.playPop();
-enemy.respawnTimer = CONFIG.ENEMY_RESPAWN_FRAMES;  
-
-}
-}
 };
 
 Blaster.update = function () {
@@ -98,16 +82,36 @@ Blaster.update = function () {
   if (Blaster.blastTimer > 0) {  
     Blaster.blastTimer = Blaster.blastTimer - 1;  
   }  
-    // move bullets, kill them when they expire  
+  // move bullets; kill them when they expire or hit an enemy  
   for (var i = Blaster.bullets.length - 1; i >= 0; i--) {  
     var b = Blaster.bullets[i];  
     b.x = b.x + b.vx;  
     b.y = b.y + b.vy;  
     b.life = b.life - 1;  
+    // check every alive enemy for a hit  
+    var hit = -1;  
+    for (var e = 0; e < Enemies.list.length; e++) {  
+      var enemy = Enemies.list[e];  
+      if (enemy.respawnTimer > 0) { continue; }  
+      if (b.x > enemy.x && b.x < enemy.x + enemy.size &&  
+          b.y > enemy.y && b.y < enemy.y + enemy.size) {  
+        hit = e;  
+        break;  
+      }  
+    }  
+    if (hit >= 0) {  
+      var target = Enemies.list[hit];  
+      Enemies.spawnPop(target.x + target.size / 2, target.y + target.size / 2);  
+      Enemies.playPop();  
+      target.respawnTimer = CONFIG.ENEMY_RESPAWN_FRAMES;  
+      Blaster.bullets.splice(i, 1); // bullet dies on impact  
+      continue;  
+    }  
     if (b.life <= 0) {  
       Blaster.bullets.splice(i, 1);  
     }  
   }  
+
 
 
 // cooldown ticks down every frame
