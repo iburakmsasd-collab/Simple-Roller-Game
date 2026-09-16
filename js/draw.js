@@ -44,6 +44,7 @@ Draw.everything = function () {
 
   Draw.world();
   Draw.player();
+  Enemies.draw();  
 
   ctx.restore();
 };
