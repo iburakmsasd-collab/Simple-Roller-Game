@@ -44,9 +44,19 @@ Draw.everything = function () {
 
   Draw.world();
   Draw.player();
-  Enemies.draw();  
+  Enemies.draw();
+  Blaster.draw();  
 
   ctx.restore();
+    // blaster ammo counter, top-right, only while you hold the blaster  
+  if (Blaster.shots > 0) {  
+    ctx.fillStyle = "#000000";  
+    ctx.font = "16px monospace";  
+    ctx.textAlign = "right";  
+    ctx.fillText("SHOTS: " + Blaster.shots, CONFIG.CANVAS_W - 10, 20);  
+    ctx.textAlign = "left";  
+  }  
+
 };
 
 // Draw every grid square that is currently on screen.
