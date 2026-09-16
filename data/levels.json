@@ -7,11 +7,19 @@
       "pieces": [
         "start",
         "spikes",
-        "gap",
         "spikes",
-        "platform",
-        "stairs",
+        "spikepit",
         "enemy",
+        "platformmiddle",
+        "stairsup",
+        "platformstart",
+        "platformmiddlespikes",
+        "platformwithblaster",
+        "platformend",
+        "stairsdown",
+        "step",
+        "enemies",
+        "spikepit",
         "finish"
       ]
     },
