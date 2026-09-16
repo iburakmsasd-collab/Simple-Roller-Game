@@ -51,6 +51,11 @@ Blaster.cooldown = CONFIG.BLASTER_COOLDOWN_FRAMES;
   Blaster.blastTimer = CONFIG.BLAST_FRAMES;  
   Blaster.blastX = px;  
   Blaster.blastY = py;  
+var px = Player.x + CONFIG.PLAYER_SIZE / 2;  
+  var py = Player.y + CONFIG.PLAYER_SIZE / 2;  
+  var mx = Input.mouseX + Draw.cameraX;  
+  var my = Input.mouseY;  
+
     // spawn a bullet flying toward the mouse  
   var bdx = mx - px;  
   var bdy = my - py;  
@@ -125,7 +130,7 @@ Player.y + size > Blaster.y;
 if (hit) {
 Blaster.taken = true;
 Blaster.shots = CONFIG.BLASTER_SHOTS;
-Game.showMessage("BLASTER! " + CONFIG.BLASTER_SHOTS + "ammo, click to fire");
+Game.showMessage("BLASTER! " + CONFIG.BLASTER_SHOTS + " ammo, click to fire");
 }
 }
 };
