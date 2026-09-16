@@ -33,7 +33,7 @@ var CONFIG = {
                       // 0 = dead center, 1 = right on the edge
 
   // --- rules ----------------------------------------------------------
-  START_LEVEL: 0      // which level in data/levels.json to load first
+  START_LEVEL: 0,      // which level in data/levels.json to load first
   DASH_SPEED: 14,            // pixels per frame during a dash  
   DASH_FRAMES: 10,           // how long a dash lasts (about 0.15 sec)  
   DASH_COOLDOWN_FRAMES: 180, // 3 seconds at 60 frames per second  
