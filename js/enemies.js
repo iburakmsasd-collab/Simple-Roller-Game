@@ -135,7 +135,7 @@ Enemies.update = function () {
       }  
       enemy.x = enemy.x + enemy.dir;  
     }  
-e  }  
+  }  
   
   // --- pop particles --------------------------------------------------  
   for (i = Enemies.pops.length - 1; i >= 0; i--) {  
