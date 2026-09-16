@@ -46,7 +46,10 @@ var CONFIG = {
   ENEMY_RESPAWN_FRAMES: 50,  // about () seconds before an enemy returns  
   SPIKE_FORGIVENESS: 8,  // pixels shaved off each side of spike collisions  
   BLASTER_SPIN_SPEED: 0.08,  // how fast the blaster orbits  
-  BLAST_FRAMES: 12           // how long the blast ring shows  
+  BLAST_FRAMES: 12,           // how long the blast ring shows  
+  BULLET_SPEED: 12,       // pixels per frame  
+  BULLET_LIFE_FRAMES: 20  // how far the bullet flies before vanishing  
+
 
 
 

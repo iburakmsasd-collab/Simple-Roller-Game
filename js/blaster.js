@@ -11,7 +11,9 @@ fireWasDown: false,
 spin: 0,         // angle of the orbiting blaster  
 blastTimer: 0,   // frames the blast effect stays visible  
 blastX: 0,  
-blastY: 0  
+blastY: 0,  
+bullets: []  
+
 
 };
 
@@ -49,6 +51,20 @@ Blaster.cooldown = CONFIG.BLASTER_COOLDOWN_FRAMES;
   Blaster.blastTimer = CONFIG.BLAST_FRAMES;  
   Blaster.blastX = px;  
   Blaster.blastY = py;  
+    // spawn a bullet flying toward the mouse  
+  var bdx = mx - px;  
+  var bdy = my - py;  
+  var blength = Math.sqrt(bdx * bdx + bdy * bdy);  
+  if (blength > 0) {  
+    Blaster.bullets.push({  
+      x: px,  
+      y: py,  
+      vx: (bdx / blength) * CONFIG.BULLET_SPEED,  
+      vy: (bdy / blength) * CONFIG.BULLET_SPEED,  
+      life: CONFIG.BULLET_LIFE_FRAMES  
+    });  
+  }  
+
 
 // blast every enemy inside the radius
 var px = Player.x + CONFIG.PLAYER_SIZE / 2;
@@ -77,6 +93,17 @@ Blaster.update = function () {
   if (Blaster.blastTimer > 0) {  
     Blaster.blastTimer = Blaster.blastTimer - 1;  
   }  
+    // move bullets, kill them when they expire  
+  for (var i = Blaster.bullets.length - 1; i >= 0; i--) {  
+    var b = Blaster.bullets[i];  
+    b.x = b.x + b.vx;  
+    b.y = b.y + b.vy;  
+    b.life = b.life - 1;  
+    if (b.life <= 0) {  
+      Blaster.bullets.splice(i, 1);  
+    }  
+  }  
+
 
 // cooldown ticks down every frame
 if (Blaster.cooldown > 0) {
@@ -150,6 +177,16 @@ Blaster.draw = function () {
     ctx.arc(Blaster.blastX, Blaster.blastY, radius, 0, Math.PI * 2);  
     ctx.stroke();  
   }  
+
+    // bullets: small black dots flying through the air  
+  for (var j = 0; j < Blaster.bullets.length; j++) {  
+    var b = Blaster.bullets[j];  
+    ctx.fillStyle = "#000000";  
+    ctx.beginPath();  
+    ctx.arc(b.x, b.y, 4, 0, Math.PI * 2);  
+    ctx.fill();  
+  }  
+
 
 };  
 
