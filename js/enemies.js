@@ -186,6 +186,15 @@ Enemies.overlap = function (x, y, w, h, enemy) {
   return x < enemy.x + enemy.size && x + w > enemy.x &&  
          y < enemy.y + enemy.size && y + h > enemy.y;  
 };  
+
+// dead if touching a spike, off the world, or grabbed by an enemy  
+Player.isDead = function () {  
+  var size = CONFIG.PLAYER_SIZE;  
+  if (Collide.hitsSpike(Player.x, Player.y, size, size)) { return true; }  
+  if (Player.y > CONFIG.CANVAS_H + 200) { return true; }  
+  if (Enemies.hitsPlayer()) { return true; }  
+  return false;  
+};  
   
 Enemies.draw = function () {  
   var ctx = Draw.ctx;  
