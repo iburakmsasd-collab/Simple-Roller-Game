@@ -18,7 +18,7 @@ Game.startLevel = function (levelNumber) {
   Game.levelNumber = levelNumber;
   Level.build(levelNumber);
   Enemies.reset();  
-  Blaster.reset();.
+  Blaster.reset();
   Player.reset();
   Game.mode = "playing";
   Game.showMessage("");
