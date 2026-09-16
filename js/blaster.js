@@ -93,8 +93,6 @@ ctx.fill();
 // shots remaining, drawn after ctx.restore() so it stays on screen
 };
 
-Also add this to js/draw.js, inside Draw.everything() but after ctx.restore(), so the counter stays fixed on screen:
-Copy
 // blaster ammo counter, fixed on screen
 if (Blaster.shots > 0) {
 Draw.ctx.fillStyle = "#000000";
