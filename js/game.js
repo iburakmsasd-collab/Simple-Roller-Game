@@ -42,17 +42,17 @@ Game.update = function () {
 
   Player.update();
   Enemies.update(); 
-  add Blaster.update();.
+  Blaster.update();
 
   if (Player.isDead()) {
     Game.mode = "dead";
-    Game.showMessage("You hit something. Press R to try again.");
+    Game.showMessage("You died! Press R to restart");
     return;
   }
 
   if (Player.hasWon()) {
     Game.mode = "won";
-    Game.showMessage("You made it. Press R to play again.");
+    Game.showMessage("You won! press R to restart.");
     return;
   }
 };
