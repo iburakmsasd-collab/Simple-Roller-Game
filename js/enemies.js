@@ -200,22 +200,24 @@ Enemies.overlap = function (x, y, w, h, enemy) {
          y < enemy.y + enemy.size && y + h > enemy.y;  
 };  
 
-// is an enemy touching the player right now?  
 Enemies.hitsPlayer = function () {  
   var size = CONFIG.PLAYER_SIZE;  
   for (var i = 0; i < Enemies.list.length; i++) {  
+    if (Enemies.list[i].respawnTimer > 0) { continue; }  
     if (Enemies.overlap(Player.x, Player.y, size, size, Enemies.list[i])) {  
       return true;  
     }  
   }  
   return false;  
 };  
+
   
 Enemies.draw = function () {  
   var ctx = Draw.ctx;  
   // enemies: black circle with a white eye dot  
   for (var i = 0; i < Enemies.list.length; i++) {  
     var enemy = Enemies.list[i];  
+        if (enemy.respawnTimer > 0) { continue; } // dead ones are invisible  
     var cx = enemy.x + enemy.size / 2;  
     var cy = enemy.y + enemy.size / 2;  
     ctx.beginPath();  
