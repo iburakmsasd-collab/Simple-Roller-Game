@@ -11,6 +11,8 @@ var Input = {
   right: false,
   jump: false,
   restart: false
+  q: false,  
+  e: false 
 };
 
 // Called whenever a key goes DOWN.
