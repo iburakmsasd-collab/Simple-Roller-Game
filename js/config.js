@@ -43,7 +43,9 @@ var CONFIG = {
   BLASTER_SHOTS: 10, // shots before the blaster disappears
   BLASTER_COOLDOWN_FRAMES: 5, // wait between shots (5 = almost instant)
   BLASTER_RADIUS: 4, // blast radius, in tiles
-  ENEMY_RESPAWN_FRAMES: 300  // about 5 seconds before an enemy returns  
+  ENEMY_RESPAWN_FRAMES: 300,  // about 5 seconds before an enemy returns  
+  SPIKE_FORGIVENESS: 8  // pixels shaved off each side of spike collisions  
+
 
 };
 

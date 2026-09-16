@@ -79,11 +79,14 @@ Player.update = function () {
 // dead if touching a spike, off the world, or grabbed by an enemy  
 Player.isDead = function () {  
   var size = CONFIG.PLAYER_SIZE;  
-  if (Collide.hitsSpike(Player.x, Player.y, size, size)) { return true; }  
+  var inset = CONFIG.SPIKE_FORGIVENESS; // shrink the box so corners don't kill  
+  if (Collide.hitsSpike(Player.x + inset, Player.y + inset,  
+                        size - inset * 2, size - inset * 2)) { return true; }  
   if (Player.y > CONFIG.CANVAS_H + 200) { return true; }  
   if (Enemies.hitsPlayer()) { return true; }  
   return false;  
 };  
+  
 
 
 // Did the player just reach the finish?
