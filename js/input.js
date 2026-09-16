@@ -12,6 +12,7 @@ var Input = {
   jump: false,
   restart: false,
   q: false,  
+  fire: false,
   e: false 
 };
 
@@ -38,6 +39,7 @@ function setKey(key, isDown) {
   if (key === "r" || key === "R") { Input.restart = isDown; }
   if (key === "q") { Input.q = isDown; }  
   if (key === "e") { Input.e = isDown; }  
+  if (key === "x" || key === "X") { Input.fire = isDown; }
 }
 
 

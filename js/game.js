@@ -18,6 +18,7 @@ Game.startLevel = function (levelNumber) {
   Game.levelNumber = levelNumber;
   Level.build(levelNumber);
   Enemies.reset();  
+  add Blaster.reset();.
   Player.reset();
   Game.mode = "playing";
   Game.showMessage("");
@@ -41,6 +42,7 @@ Game.update = function () {
 
   Player.update();
   Enemies.update(); 
+  add Blaster.update();.
 
   if (Player.isDead()) {
     Game.mode = "dead";

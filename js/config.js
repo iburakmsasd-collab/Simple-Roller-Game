@@ -39,7 +39,10 @@ var CONFIG = {
   DASH_COOLDOWN_FRAMES: 180, // 3 seconds at 60 frames per second  
   DASH_RANGE: 150,           // how close an enemy must be to dash  
   ENEMY_SPEED: 1,            // enemy pixels per frame  
-  ENEMY_CHASE_RANGE: 5       // tiles before an enemy starts chasing 
+  ENEMY_CHASE_RANGE: 5,       // tiles before an enemy starts chasing 
+  BLASTER_SHOTS: 10, // shots before the blaster disappears
+  BLASTER_COOLDOWN_FRAMES: 5, // wait between shots (5 = almost instant)
+  BLASTER_RADIUS: 4 // blast radius, in tiles
 };
 
 
