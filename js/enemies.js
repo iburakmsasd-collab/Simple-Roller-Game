@@ -27,9 +27,10 @@ Enemies.reset = function () {
           x: col * CONFIG.TILE + 4,  
           y: row * CONFIG.TILE + 8,  
           size: CONFIG.TILE - 8,  
+          vy: 0,  
           dir: 1,  
-          state: "wander" // "wander" or "chase"  
-        });  
+          state: "wander"  
+        }); 
       }  
     }  
   }  
@@ -128,15 +129,30 @@ Enemies.update = function () {
     } else {  
       enemy.state = "wander";  
     }  
-    for (var s = 0; s < CONFIG.ENEMY_SPEED; s++) {  
-      if (Collide.hitsSolid(enemy.x + enemy.dir, enemy.y, enemy.size, enemy.size)) {  
-        enemy.dir = -enemy.dir; // turn around at walls  
+    // vertical: gravity pulls enemies down, they land on solid ground  
+    enemy.vy = enemy.vy + CONFIG.GRAVITY;  
+    if (enemy.vy > CONFIG.MAX_FALL) { enemy.vy = CONFIG.MAX_FALL; }  
+    for (var v = 0; v < Math.abs(enemy.vy); v++) {  
+      if (Collide.hitsSolid(enemy.x, enemy.y + (enemy.vy > 0 ? 1 : -1), enemy.size, enemy.size)) {  
+        enemy.vy = 0;  
         break;  
       }  
-      enemy.x = enemy.x + enemy.dir;  
+      enemy.y = enemy.y + (enemy.vy > 0 ? 1 : -1);  
+    }  
+    // horizontal: walk, but turn around at walls, spikes, AND pit edges  
+    for (var s = 0; s < CONFIG.ENEMY_SPEED; s++) {  
+      var nx = enemy.x + enemy.dir;  
+      var noGroundAhead = !Collide.hitsSolid(nx, enemy.y + enemy.size + 2, enemy.size, 2);  
+      if (Collide.hitsSolid(nx, enemy.y, enemy.size, enemy.size) ||  
+          Collide.hitsSpike(nx, enemy.y, enemy.size, enemy.size) ||  
+          noGroundAhead) {  
+        enemy.dir = -enemy.dir;  
+        break;  
+      }  
+      enemy.x = nx;  
     }  
   }  
-  
+
   // --- pop particles --------------------------------------------------  
   for (i = Enemies.pops.length - 1; i >= 0; i--) {  
     var p = Enemies.pops[i];  
