@@ -42,7 +42,9 @@ var CONFIG = {
   ENEMY_CHASE_RANGE: 5,       // tiles before an enemy starts chasing 
   BLASTER_SHOTS: 10, // shots before the blaster disappears
   BLASTER_COOLDOWN_FRAMES: 5, // wait between shots (5 = almost instant)
-  BLASTER_RADIUS: 4 // blast radius, in tiles
+  BLASTER_RADIUS: 4, // blast radius, in tiles
+  ENEMY_RESPAWN_FRAMES: 300  // about 5 seconds before an enemy returns  
+
 };
 
 

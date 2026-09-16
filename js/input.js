@@ -13,7 +13,10 @@ var Input = {
   restart: false,
   q: false,  
   fire: false,
-  e: false 
+  e: false,
+  mouseX: 0,  
+  mouseY: 0  
+
 };
 
 // Called whenever a key goes DOWN.

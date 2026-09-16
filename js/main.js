@@ -14,3 +14,16 @@ Level.loadData(function () {
   Game.startLevel(CONFIG.START_LEVEL);
   Game.loop();
 });
+
+// --- mouse: position and clicks --------------------------------------  
+Draw.canvas.addEventListener("mousemove", function (event) {  
+  var rect = Draw.canvas.getBoundingClientRect();  
+  Input.mouseX = event.clientX - rect.left;  
+  Input.mouseY = event.clientY - rect.top;  
+});  
+Draw.canvas.addEventListener("mousedown", function () {  
+  Input.fire = true;   // a click is one press, so the press-edge works  
+});  
+Draw.canvas.addEventListener("mouseup", function () {  
+  Input.fire = false;  
+});  

@@ -6,12 +6,13 @@
       "name": "Level 1 - Warm Up",
       "pieces": [
         "start",
-        "flat",
+        "spikes",
         "gap",
-        "flat",
+        "enemy",
         "spikes",
         "platform",
         "stairs",
+        "enemy",
         "finish"
       ]
     },

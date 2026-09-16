@@ -27,6 +27,13 @@ Level.grid[row] = line.substring(0, col) + "." + line.substring(col + 1);
 }
 }
 }
+  // remember where each enemy started, so dead ones can respawn  
+  for (var i = 0; i < Enemies.list.length; i++) {  
+    Enemies.list[i].homeX = Enemies.list[i].x;  
+    Enemies.list[i].homeY = Enemies.list[i].y;  
+    Enemies.list[i].respawnTimer = 0;  
+  }  
+
 };
 
 // fire one AoE shot if we can
@@ -47,7 +54,8 @@ var dy = ey - py;
 if (Math.sqrt(dx * dx + dy * dy) < radius) {
 Enemies.spawnPop(ex, ey);
 Enemies.playPop();
-Enemies.list.splice(i, 1);
+enemy.respawnTimer = CONFIG.ENEMY_RESPAWN_FRAMES;  
+
 }
 }
 };
@@ -78,20 +86,40 @@ Game.showMessage("BLASTER! " + CONFIG.BLASTER_SHOTS + " shots - press X");
 }
 };
 
-// draws the pickup (until taken) and the shots left (when held)
-Blaster.draw = function () {
-var ctx = Draw.ctx;
-if (!Blaster.taken) {
-// the blaster on the ground: a black square with a white barrel dot
-ctx.fillStyle = "#000000";
-ctx.fillRect(Blaster.x + 8, Blaster.y + 8, CONFIG.TILE - 16, CONFIG.TILE - 16);
-ctx.beginPath();
-ctx.arc(Blaster.x + CONFIG.TILE / 2, Blaster.y + CONFIG.TILE / 2, 5, 0, Math.PI * 2);
-ctx.fillStyle = "#FFFFFF";
-ctx.fill();
-}
-// shots remaining, drawn after ctx.restore() so it stays on screen
-};
+Blaster.draw = function () {  
+  var ctx = Draw.ctx;  
+  // the pickup: a diagonal stick, floating where you placed the "b"  
+  if (!Blaster.taken) {  
+    ctx.strokeStyle = "#000000";  
+    ctx.lineWidth = CONFIG.LINE_WIDTH;  
+    ctx.beginPath();  
+    ctx.moveTo(Blaster.x + 10, Blaster.y + CONFIG.TILE - 10);  
+    ctx.lineTo(Blaster.x + CONFIG.TILE - 10, Blaster.y + 10);  
+    ctx.stroke();  
+  }  
+  // held blaster: a stick from the player pointing at the mouse.  
+  // mouse coords are screen coords, so add the camera back to get world coords  
+  if (Blaster.shots > 0) {  
+    var px = Player.x + CONFIG.PLAYER_SIZE / 2;  
+    var py = Player.y + CONFIG.PLAYER_SIZE / 2;  
+    var mx = Input.mouseX + Draw.cameraX;  
+    var my = Input.mouseY;  
+    var dx = mx - px;  
+    var dy = my - py;  
+    var length = Math.sqrt(dx * dx + dy * dy);  
+    if (length > 0) {  
+      dx = dx / length;  
+      dy = dy / length;  
+      ctx.strokeStyle = "#000000";  
+      ctx.lineWidth = CONFIG.LINE_WIDTH;  
+      ctx.beginPath();  
+      ctx.moveTo(px, py);  
+      ctx.lineTo(px + dx * 24, py + dy * 24);  
+      ctx.stroke();  
+    }  
+  }  
+};  
+
 
 // blaster ammo counter, fixed on screen
 if (Blaster.shots > 0) {

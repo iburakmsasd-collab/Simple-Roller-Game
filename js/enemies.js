@@ -103,7 +103,8 @@ Enemies.update = function () {
       if (Enemies.overlap(Player.x, Player.y, size, size, enemy)) {  
         Enemies.spawnPop(enemy.x + enemy.size / 2, enemy.y + enemy.size / 2);  
         Enemies.playPop();  
-        Enemies.list.splice(i, 1);  
+        enemy.respawnTimer = CONFIG.ENEMY_RESPAWN_FRAMES;  
+      }  
       }  
     }  
     Enemies.dashFrames = Enemies.dashFrames - 1;  
@@ -121,6 +122,19 @@ Enemies.update = function () {
   // --- enemies: wander or chase --------------------------------------  
   for (i = 0; i < Enemies.list.length; i++) {  
     enemy = Enemies.list[i];  
+        // dead enemies count down and reappear at their start spot  
+    if (enemy.respawnTimer > 0) {  
+      enemy.respawnTimer = enemy.respawnTimer - 1;  
+      if (enemy.respawnTimer <= 0 &&  
+          Math.abs(Player.x - enemy.homeX) > CONFIG.TILE * 3) {  
+        enemy.x = enemy.homeX;  
+        enemy.y = enemy.homeY;  
+        enemy.vy = 0;  
+        enemy.respawnTimer = 0;  
+      }  
+      continue; // skip movement while dead  
+    }  
+
     var distance = Math.abs((Player.x + size / 2) - (enemy.x + enemy.size / 2));  
     if (distance < CONFIG.ENEMY_CHASE_RANGE * CONFIG.TILE) {  
       enemy.state = "chase";  
