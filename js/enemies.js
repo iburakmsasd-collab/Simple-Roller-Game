@@ -84,9 +84,9 @@ Enemies.update = function () {
   Enemies.eWasDown = Input.e;  
   
   if (Enemies.dashState === "ready") {  
-    if (qJustPressed && Enemies.enemyNear(-1)) {  
+    if (qJustPressed) {  
       Enemies.startDash(-1);  
-    } else if (eJustPressed && Enemies.enemyNear(1)) {  
+    } else if (eJustPressed) {  
       Enemies.startDash(1);  
     }  
   } else if (Enemies.dashState === "dashing") {  
