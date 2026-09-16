@@ -56,6 +56,8 @@ var py = Player.y + CONFIG.PLAYER_SIZE / 2;
 var radius = CONFIG.BLASTER_RADIUS * CONFIG.TILE;
 for (var i = Enemies.list.length - 1; i >= 0; i--) {
 var enemy = Enemies.list[i];
+if (enemy.respawnTimer > 0) { continue; } // already dead, skip  
+
 var ex = enemy.x + enemy.size / 2;
 var ey = enemy.y + enemy.size / 2;
 var dx = ex - px;
@@ -71,7 +73,6 @@ enemy.respawnTimer = CONFIG.ENEMY_RESPAWN_FRAMES;
 
 Blaster.update = function () {
   // spin the blaster around the player  
-  Blaster.spin = Blaster.spin + CONFIG.BLASTER_SPIN_SPEED;  
   // blast effect fades out  
   if (Blaster.blastTimer > 0) {  
     Blaster.blastTimer = Blaster.blastTimer - 1;  
@@ -97,7 +98,7 @@ Player.y + size > Blaster.y;
 if (hit) {
 Blaster.taken = true;
 Blaster.shots = CONFIG.BLASTER_SHOTS;
-Game.showMessage("BLASTER! " + CONFIG.BLASTER_SHOTS + " shots - press X");
+Game.showMessage("BLASTER! " + CONFIG.BLASTER_SHOTS + "ammo, click to fire");
 }
 }
 };
@@ -116,17 +117,20 @@ Blaster.draw = function () {
   // held blaster: a stick from the player pointing at the mouse.  
   // mouse coords are screen coords, so add the camera back to get world coords  
   // held blaster: a stick orbiting the player's edge, pointing outward  
+  // held blaster: sits on the player's edge, points at the mouse  
   if (Blaster.shots > 0) {  
     var px = Player.x + CONFIG.PLAYER_SIZE / 2;  
     var py = Player.y + CONFIG.PLAYER_SIZE / 2;  
-    var ox = px + Math.cos(Blaster.spin) * (CONFIG.PLAYER_RADIUS + 4);  
-    var oy = py + Math.sin(Blaster.spin) * (CONFIG.PLAYER_RADIUS + 4);  
-    var dx = ox - px;  
-    var dy = oy - py;  
+    var mx = Input.mouseX + Draw.cameraX;  
+    var my = Input.mouseY;  
+    var dx = mx - px;  
+    var dy = my - py;  
     var length = Math.sqrt(dx * dx + dy * dy);  
     if (length > 0) {  
       dx = dx / length;  
       dy = dy / length;  
+      var ox = px + dx * (CONFIG.PLAYER_RADIUS + 4);  
+      var oy = py + dy * (CONFIG.PLAYER_RADIUS + 4);  
       ctx.strokeStyle = "#000000";  
       ctx.lineWidth = CONFIG.LINE_WIDTH;  
       ctx.beginPath();  
@@ -135,6 +139,7 @@ Blaster.draw = function () {
       ctx.stroke();  
     }  
   }  
+ 
   // the blast: an expanding ring that fades away  
   if (Blaster.blastTimer > 0) {  
     var progress = 1 - Blaster.blastTimer / CONFIG.BLAST_FRAMES;  
