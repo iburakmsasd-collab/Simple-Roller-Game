@@ -18,9 +18,10 @@ Level.loadData(function () {
 // --- mouse: position and clicks --------------------------------------  
 Draw.canvas.addEventListener("mousemove", function (event) {  
   var rect = Draw.canvas.getBoundingClientRect();  
-  Input.mouseX = event.clientX - rect.left;  
-  Input.mouseY = event.clientY - rect.top;  
+  Input.mouseX = (event.clientX - rect.left) * (Draw.canvas.width / rect.width);  
+  Input.mouseY = (event.clientY - rect.top) * (Draw.canvas.height / rect.height);  
 });  
+
 Draw.canvas.addEventListener("mousedown", function () {  
   Input.fire = true;   // a click is one press, so the press-edge works  
 });  
