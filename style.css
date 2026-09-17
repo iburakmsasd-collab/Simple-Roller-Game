@@ -22,6 +22,8 @@ canvas {
   background: #ffffff;
   display: block;
   margin: 0 auto;
+  width: 1200px;
+  height: 600px; 
 }
 
 #message {
