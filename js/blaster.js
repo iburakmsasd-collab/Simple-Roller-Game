@@ -134,7 +134,7 @@ Player.y + size > Blaster.y;
 if (hit) {
 Blaster.taken = true;
 Blaster.shots = CONFIG.BLASTER_SHOTS;
-Game.showMessage("BLASTER! " + CONFIG.BLASTER_SHOTS + " ammo, click to fire");
+Game.showMessage("BLASTER! " + CONFIG.BLASTER_SHOTS + " total ammo, click to fire");
 }
 }
 };
