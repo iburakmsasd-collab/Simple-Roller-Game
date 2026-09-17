@@ -48,7 +48,7 @@ var CONFIG = {
   BLASTER_SPIN_SPEED: 0.08,  // how fast the blaster orbits  
   BLAST_FRAMES: 12,           // how long the blast ring shows  
   BULLET_SPEED: 12,       // pixels per frame  
-  BULLET_LIFE_FRAMES: 20  // how far the bullet flies before vanishing  
+  BULLET_LIFE_FRAMES: 100  // how far the bullet flies before vanishing  
 
 
 

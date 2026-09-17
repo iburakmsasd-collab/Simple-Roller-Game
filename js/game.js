@@ -24,6 +24,23 @@ Game.startLevel = function (levelNumber) {
   Game.showMessage("");
 };
 
+// --- level randomizer: keep start and finish, shuffle the middle ----  
+Game.shuffleLevel = function (levelNumber) {  
+  var pieces = Level.levels[levelNumber].pieces;  
+  // only shuffle the pieces between the first and the last  
+  var middle = pieces.slice(1, pieces.length - 1);  
+  // Fisher-Yates shuffle: walk backwards and swap with a random earlier spot  
+  for (var i = middle.length - 1; i > 0; i--) {  
+    var j = Math.floor(Math.random() * (i + 1));  
+    var temp = middle[i];  
+    middle[i] = middle[j];  
+    middle[j] = temp;  
+  }  
+  // glue start + shuffled middle + finish back together  
+  Level.levels[levelNumber].pieces = [pieces[0]].concat(middle, [pieces[pieces.length - 1]]);  
+};  
+
+
 Game.showMessage = function (text) {
   document.getElementById("message").textContent = text;
 };
