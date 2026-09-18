@@ -14,16 +14,17 @@ var Game = {
   levelNumber: 0
 };
 
-Game.startLevel = function (levelNumber) {
-  Game.shuffleLevel(levelNumber);  
-  Game.levelNumber = levelNumber;
-  Level.build(levelNumber);
+Game.startLevel = function (levelNumber) {  
+  Game.levelNumber = levelNumber;  
+  Game.buildRandomLevel();  
+  Level.build(levelNumber);  
   Enemies.reset();  
-  Blaster.reset();
-  Player.reset();
-  Game.mode = "playing";
-  Game.showMessage("");
-};
+  Blaster.reset();  
+  Player.reset();  
+  Game.mode = "playing";  
+  Game.showMessage("");  
+};  
+
 
 // --- level randomizer: start and finish fixed, middle shuffled ------  
 // rule: the piece after the start must be flat, so you never spawn into danger  
@@ -53,6 +54,28 @@ Game.shuffleLevel = function (levelNumber) {
   }  
   Level.levels[levelNumber].pieces = [pieces[0]].concat(middle, [pieces[pieces.length - 1]]);  
 };  
+
+
+// --- build a random level from the piece pool, using the slider length ----  
+Game.buildRandomLevel = function () {  
+  var pool = ["spikes", "enemy", "platformmiddle", "stairsup",  
+              "platformstart", "platformmiddlespikes", "platformend",  
+              "stairsdown", "step", "enemies", "spikepit"];  
+  var safe = "flat";  
+  var length = Game.levelLength;  
+  var pieces = ["start", safe];  
+  for (var i = 2; i < length - 1; i++) {  
+    // never put a spike piece right after another spike piece  
+    var pick = pool[Math.floor(Math.random() * pool.length)];  
+    var lastWasSpikes = (pieces[i - 1] === "platformmiddlespikes" || pieces[i - 1] === "spikepit");  
+    if (lastWasSpikes && pick === "spikes") { pick = safe; }  
+    pieces.push(pick);  
+  }  
+  pieces.push("finish");  
+  // swap it into the level list, replacing whatever was there  
+  Level.levels[Game.levelNumber].pieces = pieces;  
+};  
+
  
 
 
@@ -76,11 +99,13 @@ Game.update = function () {
   Enemies.update(); 
   Blaster.update();
 
-  if (Player.isDead()) {
-    Game.mode = "dead";
-    Game.showMessage("You died! Press R to restart");
-    return;
-  }
+  if (Player.isDead()) {  
+    Blaster.shots = 0; // dying costs you the blaster  
+    Game.mode = "dead";  
+    Game.showMessage("You died! Press R to restart");  
+    return;  
+  }  
+
 
   if (Player.hasWon()) {
     Game.mode = "won";
@@ -96,3 +121,14 @@ Game.loop = function () {
   Draw.everything();
   window.requestAnimationFrame(Game.loop);
 };
+
+// --- length slider ----------------------------------------------------  
+Game.levelLength = 12;  
+var slider = document.getElementById("lengthSlider");  
+if (slider) {  
+  slider.addEventListener("input", function () {  
+    Game.levelLength = Number(slider.value);  
+    document.getElementById("lengthValue").textContent = slider.value;  
+  });  
+}  
+
