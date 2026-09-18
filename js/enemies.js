@@ -109,7 +109,7 @@ Enemies.update = function () {
     Enemies.dashFrames = Enemies.dashFrames - 1;  
     if (Enemies.dashFrames <= 0) {  
       // if another enemy is just ahead, keep dashing through it  
-      if (Enemies.enemyNear(Enemies.dashDir)) {  
+            if (Enemies.enemyNear(Enemies.dashDir, CONFIG.DASH_CHAIN_RANGE)){  
         Enemies.dashFrames = CONFIG.DASH_FRAMES;  
       } else {  
         Enemies.dashState = "cooldown";  
@@ -185,21 +185,22 @@ Enemies.update = function () {
   }  
 };  
   
-// is there an alive enemy within dash range in this direction?  
-Enemies.enemyNear = function (dir) {  
+// is there an alive enemy within a given range in this direction?  
+Enemies.enemyNear = function (dir, range) {  
   var size = CONFIG.PLAYER_SIZE;  
   for (var i = 0; i < Enemies.list.length; i++) {  
     var enemy = Enemies.list[i];  
     var dx = (enemy.x + enemy.size / 2) - (Player.x + size / 2);  
-    if (dir === 1 && dx > 0 && dx < CONFIG.DASH_RANGE) {  
+    if (dir === 1 && dx > 0 && dx < range) {  
       return true;  
     }  
-    if (dir === -1 && dx < 0 && dx > -CONFIG.DASH_RANGE) {  
+    if (dir === -1 && dx < 0 && dx > -range) {  
       return true;  
     }  
   }  
   return false;  
 };  
+
   
 Enemies.overlap = function (x, y, w, h, enemy) {  
   return x < enemy.x + enemy.size && x + w > enemy.x &&  
