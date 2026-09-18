@@ -22,20 +22,6 @@
         "spikepitby2",
         "finish"
       ]
-    },
-    {
-      "name": "Level 2 - Watch Your Step",
-      "pieces": [
-        "start",
-        "spikes",
-        "gap",
-        "step",
-        "spikepit4",
-        "platform",
-        "gap",
-        "flat",
-        "finish"
-      ]
     }
   ]
 }
