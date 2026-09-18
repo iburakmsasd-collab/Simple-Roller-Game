@@ -108,9 +108,15 @@ Enemies.update = function () {
       }    
     Enemies.dashFrames = Enemies.dashFrames - 1;  
     if (Enemies.dashFrames <= 0) {  
-      Enemies.dashState = "cooldown";  
-      Enemies.cooldown = CONFIG.DASH_COOLDOWN_FRAMES;  
+      // if another enemy is just ahead, keep dashing through it  
+      if (Enemies.enemyNear(Enemies.dashDir)) {  
+        Enemies.dashFrames = CONFIG.DASH_FRAMES;  
+      } else {  
+        Enemies.dashState = "cooldown";  
+        Enemies.cooldown = CONFIG.DASH_COOLDOWN_FRAMES;  
+      }  
     }  
+
   } else if (Enemies.dashState === "cooldown") {  
     Enemies.cooldown = Enemies.cooldown - 1;  
     if (Enemies.cooldown <= 0) {  
@@ -201,6 +207,7 @@ Enemies.overlap = function (x, y, w, h, enemy) {
 };  
 
 Enemies.hitsPlayer = function () {  
+  if (Enemies.dashState === "dashing") { return false; } // dash beats enemy touch  
   var size = CONFIG.PLAYER_SIZE;  
   for (var i = 0; i < Enemies.list.length; i++) {  
     if (Enemies.list[i].respawnTimer > 0) { continue; }  
@@ -210,6 +217,7 @@ Enemies.hitsPlayer = function () {
   }  
   return false;  
 };  
+
 
   
 Enemies.draw = function () {  
