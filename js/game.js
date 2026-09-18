@@ -15,6 +15,7 @@ var Game = {
 };
 
 Game.startLevel = function (levelNumber) {
+  Game.shuffleLevel(levelNumber);  
   Game.levelNumber = levelNumber;
   Level.build(levelNumber);
   Enemies.reset();  
@@ -24,21 +25,35 @@ Game.startLevel = function (levelNumber) {
   Game.showMessage("");
 };
 
-// --- level randomizer: keep start and finish, shuffle the middle ----  
+// --- level randomizer: start and finish fixed, middle shuffled ------  
+// rule: the piece after the start must be flat, so you never spawn into danger  
 Game.shuffleLevel = function (levelNumber) {  
   var pieces = Level.levels[levelNumber].pieces;  
-  // only shuffle the pieces between the first and the last  
   var middle = pieces.slice(1, pieces.length - 1);  
-  // Fisher-Yates shuffle: walk backwards and swap with a random earlier spot  
+  // Fisher-Yates shuffle: walk backwards, swap with a random earlier spot  
   for (var i = middle.length - 1; i > 0; i--) {  
     var j = Math.floor(Math.random() * (i + 1));  
     var temp = middle[i];  
     middle[i] = middle[j];  
     middle[j] = temp;  
   }  
-  // glue start + shuffled middle + finish back together  
+  // find a safe piece to sit right after the start  
+  var safeIndex = -1;  
+  for (var k = 0; k < middle.length; k++) {  
+    if (middle[k] === "flat") {  
+      safeIndex = k;  
+      break;  
+    }  
+  }  
+  // if we found one, move it to the front of the middle  
+  if (safeIndex > 0) {  
+    var safe = middle[safeIndex];  
+    middle.splice(safeIndex, 1);  
+    middle.unshift(safe);  
+  }  
   Level.levels[levelNumber].pieces = [pieces[0]].concat(middle, [pieces[pieces.length - 1]]);  
 };  
+ 
 
 
 Game.showMessage = function (text) {
