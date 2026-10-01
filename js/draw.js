@@ -84,7 +84,7 @@ Draw.world = function () {
 // A solid block: white inside, black outline.
 Draw.block = function (x, y, size) {
   var ctx = Draw.ctx;
-  ctx.fillStyle = "#0a7a00";
+  ctx.fillStyle = "#12dd00";
   ctx.fillRect(x, y, size, size);
   ctx.strokeStyle = "#000000";
   ctx.lineWidth = CONFIG.LINE_WIDTH;
