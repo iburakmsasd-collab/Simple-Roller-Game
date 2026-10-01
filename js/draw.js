@@ -35,7 +35,7 @@ Draw.everything = function () {
   var ctx = Draw.ctx;
 
   // 1. wipe the screen white
-  ctx.fillStyle = "#b42d2d";
+  ctx.fillStyle = "#670202";
   ctx.fillRect(0, 0, CONFIG.CANVAS_W, CONFIG.CANVAS_H);
 
   // 2. shift everything left so the camera looks like it moved right
@@ -84,7 +84,7 @@ Draw.world = function () {
 // A solid block: white inside, black outline.
 Draw.block = function (x, y, size) {
   var ctx = Draw.ctx;
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#0a7a00";
   ctx.fillRect(x, y, size, size);
   ctx.strokeStyle = "#000000";
   ctx.lineWidth = CONFIG.LINE_WIDTH;
