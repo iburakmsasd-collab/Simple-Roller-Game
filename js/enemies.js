@@ -231,12 +231,12 @@ Enemies.draw = function () {
     var cy = enemy.y + enemy.size / 2;  
     ctx.beginPath();  
     ctx.arc(cx, cy, enemy.size / 2, 0, Math.PI * 2);  
-    ctx.fillStyle = "#000000";  
+    ctx.fillStyle = "#fc0000";  
     ctx.fill();  
     // eye turns toward the player when chasing  
     ctx.beginPath();  
     ctx.arc(cx + enemy.dir * 5, cy - 3, 4, 0, Math.PI * 2);  
-    ctx.fillStyle = "#FFFFFF";  
+    ctx.fillStyle = "#070505";  
     ctx.fill();  
   }  
   // pop particles  
