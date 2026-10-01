@@ -97,7 +97,7 @@ Draw.block = function (x, y, size) {
 // A spike: a solid black triangle pointing up.
 Draw.spike = function (x, y, size) {
   var ctx = Draw.ctx;
-  ctx.fillStyle = "#ff00cc";
+  ctx.fillStyle = "#ff0077";
   ctx.beginPath();
   ctx.moveTo(x, y + size);
   ctx.lineTo(x + size / 2, y);
