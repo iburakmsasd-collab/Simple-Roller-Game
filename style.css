@@ -30,8 +30,10 @@ canvas {
   font-size: 20px;
   height: 24px;
   margin-top: 16px;
+  color:#ffffff;
 }
 
 .controls {
   font-size: 10px;
+  color:#ffffff;
 }
