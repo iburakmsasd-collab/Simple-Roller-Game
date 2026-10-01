@@ -71,8 +71,7 @@ Game.buildRandomLevel = function () {
         "stairsdown",
         "step",
         "enemies",
-        "spikepitby2",
-        "finish"];  
+        "spikepitby2",];  
   var safe = "flat";  
   var length = Game.levelLength;  
   var pieces = ["start", safe];  
