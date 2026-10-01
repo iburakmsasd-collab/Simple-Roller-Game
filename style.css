@@ -24,7 +24,9 @@ canvas {
   margin: 0 auto;
   width: 1200px;
   height: 600px; 
-}
+  border: 3px solid #00ffcc;  
+  box-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc;  
+}  
 
 #message {
   font-size: 20px;

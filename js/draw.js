@@ -35,7 +35,7 @@ Draw.everything = function () {
   var ctx = Draw.ctx;
 
   // 1. wipe the screen white
-  ctx.fillStyle = "#670202";
+  ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, CONFIG.CANVAS_W, CONFIG.CANVAS_H);
 
   // 2. shift everything left so the camera looks like it moved right
@@ -50,7 +50,7 @@ Draw.everything = function () {
   ctx.restore();
     // blaster ammo counter, top-right, only while you hold the blaster  
   if (Blaster.shots > 0) {  
-    ctx.fillStyle = "#000000";  
+    ctx.fillStyle = "#00ffcc";  
     ctx.font = "16px monospace";  
     ctx.textAlign = "right";  
     ctx.fillText("SHOTS: " + Blaster.shots, CONFIG.CANVAS_W - 10, 20);  
@@ -81,23 +81,23 @@ Draw.world = function () {
   }
 };
 
-// A solid block: white inside, black outline.
-Draw.block = function (x, y, size) {
-  var ctx = Draw.ctx;
-  ctx.fillStyle = "#12dd00";
-  ctx.fillRect(x, y, size, size);
-  ctx.strokeStyle = "#000000";
-  ctx.lineWidth = CONFIG.LINE_WIDTH;
-  ctx.strokeRect(x + CONFIG.LINE_WIDTH / 2,
-                 y + CONFIG.LINE_WIDTH / 2,
-                 size - CONFIG.LINE_WIDTH,
-                 size - CONFIG.LINE_WIDTH);
-};
+Draw.block = function (x, y, size) {  
+  var ctx = Draw.ctx;  
+  ctx.save();  
+  // the neon glow: blur the shadow so the block looks lit  
+  ctx.shadowColor = "#00ffcc";  
+  ctx.shadowBlur = 12;  
+  ctx.strokeStyle = "#00ffcc";  
+  ctx.lineWidth = CONFIG.LINE_WIDTH;  
+  ctx.strokeRect(x + 1, y + 1, size - 2, size - 2);  
+  ctx.restore();  
+};  
+
 
 // A spike: a solid black triangle pointing up.
 Draw.spike = function (x, y, size) {
   var ctx = Draw.ctx;
-  ctx.fillStyle = "#000000";
+  ctx.fillStyle = "#ff00cc";
   ctx.beginPath();
   ctx.moveTo(x, y + size);
   ctx.lineTo(x + size / 2, y);
@@ -109,7 +109,7 @@ Draw.spike = function (x, y, size) {
 // The finish: a black pole with a flag on it.
 Draw.finish = function (x, y, size) {
   var ctx = Draw.ctx;
-  ctx.fillStyle = "#000000";
+  ctx.fillStyle = "#00ca25";
   ctx.fillRect(x + size / 2 - 2, y, 4, size);
   ctx.beginPath();
   ctx.moveTo(x + size / 2 + 2, y + 4);
