@@ -172,8 +172,9 @@ Enemies.update = function () {
     }  
   }  
 
-  // --- pop particles --------------------------------------------------  
-  for (i = Enemies.pops.length - 1; i >= 0; i--) {  
+// particles animate even when the game is in "dead" or "won" mode  
+Enemies.updatePops = function () {  
+  for (var i = Enemies.pops.length - 1; i >= 0; i--) {  
     var p = Enemies.pops[i];  
     p.x = p.x + p.vx;  
     p.y = p.y + p.vy;  
@@ -183,6 +184,8 @@ Enemies.update = function () {
       Enemies.pops.splice(i, 1);  
     }  
   }  
+};  
+
 };  
   
 // is there an alive enemy within a given range in this direction?  

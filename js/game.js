@@ -84,29 +84,34 @@ Game.showMessage = function (text) {
   document.getElementById("message").textContent = text;
 };
 
-// --- ONE FRAME --------------------------------------------------------
-Game.update = function () {
-
-  // R always restarts, no matter what mode we are in.
-  if (Input.restart) {
-    Game.startLevel(Game.levelNumber);
-    return;
-  }
-
-  // If we are not playing, nothing moves. We just wait for R.
-  if (Game.mode !== "playing") { return; }
-
-  Player.update();
-  Enemies.update(); 
-  Blaster.update();
-
+Game.update = function () {  
+  
+  // R always restarts, no matter what mode we are in.  
+  if (Input.restart) {  
+    Game.startLevel(Game.levelNumber);  
+    return;  
+  }  
+  
+  // particles keep animating even while dead or won  
+  Enemies.updatePops();  
+  
+  // If we are not playing, nothing moves. We just wait for R.  
+  if (Game.mode !== "playing") { return; }  
+  
+  Player.update();  
+  Enemies.update();  
+  Blaster.update();  
+  
   if (Player.isDead()) {  
+    // the player pops like an enemy does  
+    Enemies.spawnPop(Player.x + CONFIG.PLAYER_SIZE / 2,  
+                     Player.y + CONFIG.PLAYER_SIZE / 2);  
+    Enemies.playPop();  
     Blaster.shots = 0; // dying costs you the blaster  
     Game.mode = "dead";  
     Game.showMessage("You died! Press R to restart");  
     return;  
   }  
-
 
   if (Player.hasWon()) {
     Game.mode = "won";
