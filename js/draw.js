@@ -43,8 +43,10 @@ Draw.everything = function () {
   ctx.translate(-Draw.cameraX, 0);
 
   Draw.world();
-  Draw.trail();  
-  Draw.player();
+  if (Game.mode === "playing") {  
+    Draw.trail();  
+    Draw.player();  
+  }  
   Enemies.draw();
   Blaster.draw();  
 
