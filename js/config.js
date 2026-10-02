@@ -50,7 +50,7 @@ var CONFIG = {
   BULLET_SPEED: 12,       // pixels per frame  
   BULLET_LIFE_FRAMES: 100,  // how far the bullet flies before vanishing  
   DASH_CHAIN_RANGE: 120,  // how close the next enemy must be to extend a dash  
-  TRAIL_LENGTH: 15,        // how many past positions we remember  
+  TRAIL_LENGTH: 30,        // how many past positions we remember  
   TRAIL_COLOR: "#00ffcc"  
 
 
