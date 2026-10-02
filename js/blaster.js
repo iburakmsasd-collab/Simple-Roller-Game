@@ -143,7 +143,7 @@ Blaster.draw = function () {
   var ctx = Draw.ctx;  
   // the pickup: a diagonal stick, floating where you placed the "b"  
   if (!Blaster.taken) {  
-    ctx.strokeStyle = "#000000";  
+    ctx.strokeStyle = "#525252";  
     ctx.lineWidth = CONFIG.LINE_WIDTH;  
     ctx.beginPath();  
     ctx.moveTo(Blaster.x + 10, Blaster.y + CONFIG.TILE - 10);  
@@ -167,7 +167,7 @@ Blaster.draw = function () {
       dy = dy / length;  
       var ox = px + dx * (CONFIG.PLAYER_RADIUS + 4);  
       var oy = py + dy * (CONFIG.PLAYER_RADIUS + 4);  
-      ctx.strokeStyle = "#000000";  
+      ctx.strokeStyle = "#ffffff";  
       ctx.lineWidth = CONFIG.LINE_WIDTH;  
       ctx.beginPath();  
       ctx.moveTo(ox - dx * 8, oy - dy * 8);  

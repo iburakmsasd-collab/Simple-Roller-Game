@@ -248,7 +248,7 @@ Enemies.draw = function () {
   // cooldown bar under the player so you can see when dash is back  
   if (Enemies.dashState === "cooldown") {  
     var ratio = 1 - (Enemies.cooldown / CONFIG.DASH_COOLDOWN_FRAMES);  
-    ctx.fillStyle = "#000000";  
+    ctx.fillStyle = "#ffffff";  
     ctx.fillRect(Player.x, Player.y + CONFIG.PLAYER_SIZE + 4,  
                  CONFIG.PLAYER_SIZE * ratio, 4);  
   }  
