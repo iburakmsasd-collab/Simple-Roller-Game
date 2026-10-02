@@ -240,7 +240,7 @@ Enemies.draw = function () {
     ctx.fill();  
   }  
   // pop particles  
-  ctx.fillStyle = "#000000";  
+  ctx.fillStyle = "#ffffff";  
   for (var j = 0; j < Enemies.pops.length; j++) {  
     var p = Enemies.pops[j];  
     ctx.fillRect(p.x - 2, p.y - 2, 4, 4);  

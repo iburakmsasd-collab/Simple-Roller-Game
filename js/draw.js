@@ -43,6 +43,7 @@ Draw.everything = function () {
   ctx.translate(-Draw.cameraX, 0);
 
   Draw.world();
+  Draw.trail();  
   Draw.player();
   Enemies.draw();
   Blaster.draw();  
@@ -118,6 +119,25 @@ Draw.finish = function (x, y, size) {
   ctx.closePath();
   ctx.fill();
 };
+
+// the trail: fading circles at the player's past positions  
+Draw.trail = function () {  
+  var ctx = Draw.ctx;  
+  for (var i = Player.trail.length - 1; i >= 0; i--) {  
+    var spot = Player.trail[i];  
+    // older positions are smaller and more transparent  
+    var fade = 1 - (i / Player.trail.length);  
+    ctx.fillStyle = CONFIG.TRAIL_COLOR;  
+    ctx.globalAlpha = fade * 0.3;  
+    ctx.beginPath();  
+    ctx.arc(spot.x + CONFIG.PLAYER_SIZE / 2,  
+            spot.y + CONFIG.PLAYER_SIZE / 2,  
+            CONFIG.PLAYER_RADIUS * fade * 0.7, 0, Math.PI * 2);  
+    ctx.fill();  
+  }  
+  ctx.globalAlpha = 1; // reset so everything else draws normally  
+};  
+
 
 // The player: a white circle with a black outline and one off-center
 // black dot, so you can see it roll.

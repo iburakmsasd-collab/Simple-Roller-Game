@@ -190,7 +190,7 @@ Blaster.draw = function () {
     // bullets: small black dots flying through the air  
   for (var j = 0; j < Blaster.bullets.length; j++) {  
     var b = Blaster.bullets[j];  
-    ctx.fillStyle = "#000000";  
+    ctx.fillStyle = "#ffffff";  
     ctx.beginPath();  
     ctx.arc(b.x, b.y, 4, 0, Math.PI * 2);  
     ctx.fill();  

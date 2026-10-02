@@ -13,7 +13,9 @@ var Player = {
   vx: 0,           // speed left and right
   vy: 0,           // speed up and down
   onGround: false, // is the player standing on something right now?
-  angle: 0         // how far the circle has rolled, for drawing the dot
+  angle: 0,       // how far the circle has rolled, for drawing the dot
+  trail: []  
+
 };
 
 // Put the player back at the level's S square.
@@ -24,6 +26,7 @@ Player.reset = function () {
   Player.vy = 0;
   Player.onGround = false;
   Player.angle = 0;
+  Player.trail = [];  
 };
 
 // Run one frame of player movement.
@@ -74,6 +77,13 @@ Player.update = function () {
 
   // --- 6. keep the player inside the left edge of the world -----------
   if (Player.x < 0) { Player.x = 0; }
+  
+    // remember where we were, for the trail  
+  Player.trail.unshift({ x: Player.x, y: Player.y });  
+  if (Player.trail.length > CONFIG.TRAIL_LENGTH) {  
+    Player.trail.pop();  
+  }  
+
 };
 
 // dead if touching a spike, off the world, or grabbed by an enemy  
