@@ -54,18 +54,20 @@ Enemies.playPop = function () {
   osc.stop(Enemies.sound.currentTime + 0.16);  
 };  
   
-// little black burst where the enemy died  
-Enemies.spawnPop = function (x, y) {  
-  for (var i = 0; i < 10; i++) {  
+// little burst where something died — count controls how many pieces  
+Enemies.spawnPop = function (x, y, count) {  
+  if (count === undefined) { count = 10; }  
+  for (var i = 0; i < count; i++) {  
     Enemies.pops.push({  
       x: x,  
       y: y,  
-      vx: (Math.random() - 0.5) * 8,  
-      vy: (Math.random() - 0.5) * 8 - 2,  
-      life: 20  
+      vx: (Math.random() - 0.5) * 10,  
+      vy: (Math.random() - 0.5) * 10 - 2,  
+      life: 25  
     });  
   }  
 };  
+ 
   
 Enemies.startDash = function (dir) {  
   Enemies.dashState = "dashing";  
