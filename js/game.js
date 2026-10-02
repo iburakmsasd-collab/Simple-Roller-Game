@@ -58,20 +58,10 @@ Game.shuffleLevel = function (levelNumber) {
 
 // --- build a random level from the piece pool, using the slider length ----  
 Game.buildRandomLevel = function () {  
-  var pool = [        "start",
-        "spikes",
-        "spikepitby4",
-        "enemy",
-        "platformmiddle",
-        "stairsup",
-        "platformstart",
-        "platformmiddlespikes",
-        "platformwithblaster",
-        "platformend",
-        "stairsdown",
-        "step",
-        "enemies",
-        "spikepitby2",];  
+  var pool = ["spikes", "spikepitby4", "enemy", "platformmiddle",  
+              "stairsup", "platformstart", "platformmiddlespikes",  
+              "platformwithblaster", "platformend", "stairsdown",  
+              "step", "enemies", "spikepitby2", "flat"];   
   var safe = "flat";  
   var length = Game.levelLength;  
   var pieces = ["start", safe];  
